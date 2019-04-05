@@ -57,4 +57,4 @@ Resources:
       Path: /
       ManagedPolicyArns:
         -  arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-        -  arn:aws:iam::aws:policy/bo-api-DynamoDB
+        -  arn:aws:iam::aws:policy/service-role/bo-api-DynamoDB
