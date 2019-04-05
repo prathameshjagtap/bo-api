@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {
 
- // silence console logging
+ // silence console logging 
     @Value("${logging.level.root:OFF}")
     String message = "";
 
