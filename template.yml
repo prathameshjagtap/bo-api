@@ -20,41 +20,29 @@ Globals:
     AutoPublishAlias: live
     DeploymentPreference:
       Enabled: true
-      Type: Canary10Percent5Minutes
+      Type: AllAtOnce
       Role: !Ref CodeDeployRole
 
 Resources:
-  GetHelloWorld:
+  BoApiFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: com.aws.codestar.projecttemplates.handler.HelloWorldHandler
+      Handler: com.blendorders.api.StreamLambdaHandler::handleRequest
       Runtime: java8
       Role:
         Fn::GetAtt:
         - LambdaExecutionRole
         - Arn
+      CodeUri: target/bo-api-1.0-lambda-package.zip
+      MemorySize: 1024
+      Policies: AWSLambdaBasicExecutionRole
+      Timeout: 60
       Events:
-        GetEvent:
+        GetResource:
           Type: Api
           Properties:
-            Path: /
-            Method: get
-
-  PostHelloWorld:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: com.aws.codestar.projecttemplates.handler.HelloWorldHandler
-      Runtime: java8
-      Role:
-        Fn::GetAtt:
-        - LambdaExecutionRole
-        - Arn
-      Events:
-        PostEvent:
-          Type: Api
-          Properties:
-            Path: /
-            Method: post
+            Path: /{proxy+}
+            Method: any
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
