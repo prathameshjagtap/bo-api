@@ -13,13 +13,13 @@ import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 @Configuration
 public class DbConfig {
 
-	@Value("${aws_region}")
+	@Value("${aws.region}")
 	public String region;
 	
-	@Value("${secret_key}")
+	@Value("${aws.secret_key}")
 	public String secretKey;
 	
-	@Value("${access_key_id}")
+	@Value("${aws.access_key_id}")
 	public String accessKeyId;
 	
 	@Bean
@@ -50,7 +50,7 @@ public class DbConfig {
 		AmazonDynamoDBClientBuilder	builder = AmazonDynamoDBClientBuilder.standard()
 	            .withRegion(region);
 		
-		if(accessKeyId != null)
+		if(!accessKeyId.equals("nokey"))
             builder = builder.withCredentials(credentialsProvider);
 			
 		AmazonDynamoDB client = builder.build();
