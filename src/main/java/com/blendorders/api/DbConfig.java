@@ -11,6 +11,7 @@ import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.util.StringUtils;
 
 @Configuration
 public class DbConfig {
@@ -54,11 +55,11 @@ public class DbConfig {
 		AmazonDynamoDBClientBuilder	builder = AmazonDynamoDBClientBuilder.standard()
 	            .withRegion(region);
 		
-		if(!accessKeyId.equals("nokey")){
-            builder = builder.withCredentials(credentialsProvider);
-			logger.info("Environment credentials will be used");
-		} else {
+		if( StringUtils.isNullOrEmpty(accessKeyId) || accessKeyId.equals("nokey")){
 			logger.info("Default credentials will be used");
+		} else {
+            builder = builder.withCredentials(credentialsProvider);
+			logger.info("Environment credentials will be used :{}", accessKeyId);
 		}
 			
 		AmazonDynamoDB client = builder.build();
