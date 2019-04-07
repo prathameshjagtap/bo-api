@@ -1,5 +1,7 @@
 package com.blendorders.api;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +15,8 @@ import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 @Configuration
 public class DbConfig {
 
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
 	@Value("${aws.region}")
 	public String region;
 	
@@ -50,8 +54,12 @@ public class DbConfig {
 		AmazonDynamoDBClientBuilder	builder = AmazonDynamoDBClientBuilder.standard()
 	            .withRegion(region);
 		
-		if(!accessKeyId.equals("nokey"))
+		if(!accessKeyId.equals("nokey")){
             builder = builder.withCredentials(credentialsProvider);
+			logger.info("Environment credentials will be used");
+		} else {
+			logger.info("Default credentials will be used");
+		}
 			
 		AmazonDynamoDB client = builder.build();
 		
