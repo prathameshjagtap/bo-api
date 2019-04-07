@@ -26,7 +26,30 @@ public class Order {
 	DeliveryMan deliveryMan;
 	Customer customer;
 	List<OrderStatus> orderStatus;
+	
+	List<OrderItem> items;
+	List<Tax> taxes;
+	
+	String deliveryPin;
 
+	public List<OrderItem> getItems() {
+		return items;
+	}
+	public void setItems(List<OrderItem> items) {
+		this.items = items;
+	}
+	public List<Tax> getTaxes() {
+		return taxes;
+	}
+	public void setTaxes(List<Tax> taxes) {
+		this.taxes = taxes;
+	}
+	public String getDeliveryPin() {
+		return deliveryPin;
+	}
+	public void setDeliveryPin(String deliveryPin) {
+		this.deliveryPin = deliveryPin;
+	}
 	public Customer getCustomer() {
 		return customer;
 	}

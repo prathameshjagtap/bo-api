@@ -20,4 +20,10 @@ public class OrderController {
 		return orderService.getCurrentOrders();
 	}
 	
+	@GetMapping("details")
+	public Order orderDetails() {
+		return null;
+	}
+	
+	
 }
